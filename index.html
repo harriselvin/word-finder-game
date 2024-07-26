@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Word</title>
+    <link rel="stylesheet" href="./CSS/style.css">
+    <script src="./Script/script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h1>Guess the Word</h1>
+        </div>
+        <div class="guess-msg"></div>
+        <div class="word"></div>
+        <div class="hint">
+            <p>You have <span data-amount>10 guesses</span> remaining</p>
+        </div>
+        <div class="result"></div>
+        <div class="desc-letter-block">
+            <p>Type one letter</p>
+        </div>
+        <div class="letter-block">
+            <label for="letter"></label>
+            <input type="text" id="letter" name="letter" class="letter" maxlength="1">
+        </div>
+        <div class="btn-block">
+            <button class="btn">Guess!</button>
+        </div>
+        <div class="play-again-btn">
+            <button class="play-again hide">Play Again!</button>
+        </div>
+    </div>
+    <div class="start-sec">
+        <button class="start">Start</button>
+    </div>
+</body>
+</html>

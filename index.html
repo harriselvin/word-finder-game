@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guess the Word</title>
     <link rel="stylesheet" href="./CSS/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="./Script/script.js" defer></script>
 </head>
 <body>
@@ -15,11 +16,11 @@
         <div class="guess-msg"></div>
         <div class="word"></div>
         <div class="hint">
-            <p>You have <span data-amount>10 guesses</span> remaining</p>
+            <p>You have <span data-amount><b class="hint-num">10</b> guesses</span> remaining</p>
         </div>
         <div class="result"></div>
         <div class="desc-letter-block">
-            <p>Type one letter</p>
+            <p>Only one letter can be inserted at a time</p>
         </div>
         <div class="letter-block">
             <label for="letter"></label>
@@ -31,11 +32,21 @@
         <div class="play-again-btn">
             <button class="play-again hide">Play Again!</button>
         </div>
+        <div class="next-level-btn">
+            <button class="next-level hide">Next Level</button>
+        </div>
     </div>
     <div class="start-sec">
         <button class="start">
             <span>PLAY NOW</span>
         </button>
     </div>
+    <footer>
+        &copy; 2024 Elvin Harris. All Rights Reserved
+    </footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </body>
 </html>

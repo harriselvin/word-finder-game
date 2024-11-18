@@ -11,8 +11,9 @@ body {
 
 .container {
     text-align: center;
-    line-height: clamp(5cqi, 100vh, 3.2em);
+    line-height: clamp(5cqi, 100vh, 3.5em);
     display: none;
+    min-height: 85vh;
 }
 
 .title h1 {
@@ -21,7 +22,27 @@ body {
     -webkit-text-stroke: .2rem #4A7B9D;
     /* text-shadow: 5px 5px 10px #54577C; */
     color: transparent;
-    margin: .5em 0;
+    margin: 1em 0 0;
+}
+
+.guess-msg {
+    font-style: italic;
+}
+
+.word {
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    margin-left: .1em;
+}
+
+.hint-num {
+    font-size: 1.5rem;
+}
+
+.desc-letter-block p {
+    font-size: .8em;
+    font-style: italic;
 }
 
 .letter-block input {
@@ -72,6 +93,26 @@ body {
 .play-again-btn .play-again:hover {
     opacity: .8;
 }
+.next-level-btn .next-level {
+    padding: 1em;
+    width: 10em;
+    border-radius: 50px;
+    background-color: #4CB944;
+    color: white;
+    font-weight: 900;
+    box-shadow: .2em .2em 10px black;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.next-level-btn .next-level:hover:active {
+    opacity: 1;
+    box-shadow: none;
+}
+
+.next-level-btn .next-level:hover {
+    opacity: .8;
+}
 
 .hide {
     display: none;
@@ -98,6 +139,7 @@ body {
     cursor: pointer;
     background-color: transparent;
     transform: translateY(8px);
+    transition: .2s;
 }
    
 .start:after {
@@ -148,3 +190,7 @@ body {
     width: 100%;
 }
    
+footer {
+    text-align: center;
+    font-size: .8em;
+}

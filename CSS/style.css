@@ -11,7 +11,7 @@ body {
 
 .container {
     text-align: center;
-    line-height: clamp(5cqi, 100vh, 3.5em);
+    line-height: clamp(4cqi, 100vh, 2.5em);
     display: none;
     min-height: 85vh;
 }
@@ -22,7 +22,8 @@ body {
     -webkit-text-stroke: .2rem #4A7B9D;
     /* text-shadow: 5px 5px 10px #54577C; */
     color: transparent;
-    margin: 1em 0 0;
+    margin: 5cqi 0 0;
+    line-height: 1em;
 }
 
 .guess-msg {
@@ -62,6 +63,7 @@ body {
     box-shadow: .2em .2em 10px black;
     cursor: pointer;
     transition: .5s;
+    margin: 0 0 .5em;
 }
 
 .btn-block .btn:hover:active {
@@ -83,6 +85,7 @@ body {
     box-shadow: .2em .2em 10px black;
     cursor: pointer;
     transition: .5s;
+    margin: 0 0 .5em;
 }
 
 .play-again-btn .play-again:hover:active {
@@ -103,6 +106,7 @@ body {
     box-shadow: .2em .2em 10px black;
     cursor: pointer;
     transition: .5s;
+    margin: 0 0 .5em;
 }
 
 .next-level-btn .next-level:hover:active {

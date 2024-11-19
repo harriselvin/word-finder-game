@@ -25,6 +25,7 @@ const nextLevelBtn = document.querySelector('.next-level')
 const startSec = document.querySelector('.start-sec')
 const startBtn = document.querySelector('.start')
 const word = document.querySelector('.word')
+const score = document.querySelector('[data-score]')
 const words = Object.keys(options)
 let randomWord = "",
 randomHint = "";
@@ -90,6 +91,10 @@ const nextLevel = () => {
     })
 }
 
+const addScore = () => {
+    score.innerText = parseInt(score.innerText) + 1
+}
+
 // Event listener for Guess button
 guessBtn.addEventListener('click', () => {
     const guessedLetter = letterInput.value.toLowerCase().trim()
@@ -142,6 +147,7 @@ playAgainBtn.addEventListener('click', () => {
     guessAmount.innerHTML = `<b class="hint-num">${remainingGuesses}</b> guesses`
     result.innerText = ''
     letterInput.value = ''
+    score.innerText = 0
 
     // Enable the button again
     guessBtn.disabled = false
@@ -154,4 +160,5 @@ nextLevelBtn.addEventListener('click', () => {
 
     // Enable the button again
     guessBtn.disabled = false
+    addScore()
 })

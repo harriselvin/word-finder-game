@@ -27,7 +27,7 @@
         </div>
         <div class="letter-block">
             <label for="letter"></label>
-            <input type="text" id="letter" name="letter" class="letter" maxlength="1">
+            <input type="text" id="letter" name="letter" class="letter" maxlength="1" onkeydown="return /[a-z]/i.test(event.key)">
         </div>
         <div class="btn-block">
             <button class="btn">Guess!</button>

@@ -14,13 +14,21 @@ body {
     line-height: clamp(4cqi, 100vh, 2.5em);
     display: none;
     min-height: 85vh;
+    overflow-x: hidden;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+}
+
+.keypad {
+    display: none;
 }
 
 .title h1 {
     font-size: 4rem;
     text-transform: uppercase;
     -webkit-text-stroke: .2rem #4A7B9D;
-    /* text-shadow: 5px 5px 10px #54577C; */
     color: transparent;
     margin: 5cqi 0 0;
     line-height: 1em;
@@ -122,6 +130,71 @@ body {
     display: none;
 }
 
+/* Number Pad */
+@media screen and (max-width: 500px) {
+    .keypad {
+        display: block;
+        margin-top: 2em;
+    }
+    .num-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        border-radius: 5px;
+    }
+    
+    .num {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, #232323, #4a4a4a);
+        border-radius: 5px;
+        border: 1px solid white;
+        font-size: 12px;
+        color: rgb(128, 128, 128);
+        box-shadow: 2px 2px 3px rgba(0, 0, 0, .6);
+        transition: all .2s ease;
+        margin-left: -1em;
+    }
+    
+    .num:active {
+        scale: .95;
+        box-shadow: none;
+    }
+
+    .last-row * {
+        margin-left: -1.7em;
+    }
+
+    .shift {
+        width: 3em;
+        margin-left: -2em;
+    }
+
+    .backspace, .opt, .return {
+        width: 2.5em;
+    }
+
+    .opt {
+        margin-right: .5em;
+    }
+        
+    .opt .num, .return .num {
+        border-radius: 20px;
+    }
+
+    .space {
+        width: 7em;
+        margin-left: -2.8em;
+        margin-right: 2.8em;
+    }
+
+    .return {
+        margin-left: -.5em;
+    }
+}
+
 /* Play now button */
 .start-sec {
     min-height: 100vh;
@@ -130,7 +203,7 @@ body {
     align-items: center;
 }
 
-.start {
+.start-game {
     border: none;
     position: relative;
     width: 200px;
@@ -146,7 +219,7 @@ body {
     transition: .2s;
 }
    
-.start:after {
+.start-game:after {
     content: '';
     position: absolute;
     left: 0;
@@ -156,11 +229,11 @@ body {
     transition: all 2s ease;
 }
    
-.start:hover:after {
+.start-game:hover:after {
     box-shadow: 0px -13px 56px 12px #ffffffa6;
 }
    
-.start span {
+.start-game span {
     position: absolute;
     width: 100%;
     font-size: 15px;
@@ -174,11 +247,11 @@ body {
     transition: all 2s ease;
 }
    
-.start:hover span {
+.start-game:hover span {
     color: white;
 }
    
-.start:before {
+.start-game:before {
     content: '';
     position: absolute;
     width: 0;
@@ -190,7 +263,7 @@ body {
     transition: all 1s ease;
 }
    
-.start:hover:before {
+.start-game:hover:before {
     width: 100%;
 }
    

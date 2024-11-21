@@ -27,7 +27,7 @@
         </div>
         <div class="letter-block">
             <label for="letter"></label>
-            <input type="text" id="letter" name="letter" class="letter" maxlength="1" autocomplete="off" onkeydown="return /[a-z]/i.test(event.key)">
+            <input type="text" id="letter" name="letter" class="letter" maxlength="1" autocomplete="off" onkeydown="return /[a-z]/i.test(event.key)" inputmode="none">
         </div>
         <div class="btn-block">
             <button class="btn">Guess!</button>
@@ -38,9 +38,125 @@
         <div class="next-level-btn">
             <button class="next-level hide">Continue</button>
         </div>
+
+        <div class="keypad">
+            <div class="keypad-row">
+                <div class="num-wrapper fst-row">
+                    <button class="num">q<sup>1</sup></button>
+                </div>
+                <div class="num-wrapper fst-row">
+                    <button class="num">w<sup>2</sup></button>
+                </div>
+                <div class="num-wrapper fst-row">
+                    <button class="num">e<sup>3</sup></button>
+                </div>
+                <div class="num-wrapper fst-row">
+                    <button class="num">r<sup>4</sup></button>
+                </div>
+                <div class="num-wrapper fst-row">
+                    <button class="num">t<sup>5</sup></button>
+                </div>
+                <div class="num-wrapper fst-row">
+                    <button class="num">y<sup>6</sup></button>
+                </div>
+                <div class="num-wrapper fst-row">
+                    <button class="num">u<sup>7</sup></button>
+                </div>
+                <div class="num-wrapper fst-row">
+                    <button class="num">i<sup>8</sup></button>
+                </div>
+                <div class="num-wrapper fst-row">
+                    <button class="num">o<sup>9</sup></button>
+                </div>
+                <div class="num-wrapper fst-row">
+                    <button class="num">p<sup>0</sup></button>
+                </div>
+            </div>
+
+            <div class="keypad-row">
+                <div class="num-wrapper sec-row start">
+                    <button class="num">a</button>
+                </div>
+                <div class="num-wrapper sec-row">
+                    <button class="num">s</button>
+                </div>
+                <div class="num-wrapper sec-row">
+                    <button class="num">d</button>
+                </div>
+                <div class="num-wrapper sec-row">
+                    <button class="num">f<br></button>
+                </div>
+                <div class="num-wrapper sec-row">
+                    <button class="num">g</button>
+                </div>
+                <div class="num-wrapper sec-row">
+                    <button class="num">h</button>
+                </div>
+                <div class="num-wrapper sec-row">
+                    <button class="num">j<br></button>
+                </div>
+                <div class="num-wrapper sec-row">
+                    <button class="num">k</button>
+                </div>
+                <div class="num-wrapper sec-row end">
+                    <button class="num">l</button>
+                </div>
+            </div>
+
+            <div class="keypad-row">
+                <div class="num-wrapper third-row upper">
+                    <button class="num shift">⇧</button>
+                </div>
+                <div class="num-wrapper third-row">
+                    <button class="num">z</button>
+                </div>
+                <div class="num-wrapper third-row">
+                    <button class="num">x</button>
+                </div>
+                <div class="num-wrapper third-row">
+                    <button class="num">c</button>
+                </div>
+                <div class="num-wrapper third-row">
+                    <button class="num">v</button>
+                </div>
+                <div class="num-wrapper third-row">
+                    <button class="num">b</button>
+                </div>
+                <div class="num-wrapper third-row">
+                    <button class="num">n</button>
+                </div>
+                <div class="num-wrapper third-row">
+                    <button class="num">m</button>
+                </div>
+                <div class="num-wrapper third-row upper">
+                    <button class="num backspace">⇦</button>
+                </div>
+            </div>
+
+            <div class="keypad-row">
+                <div class="num-wrapper last-row opt">
+                    <button class="num">?123</button>
+                </div>
+                <div class="num-wrapper last-row comma">
+                    <button class="num">,</button>
+                </div>
+                <div class="num-wrapper last-row emoji">
+                    <button class="num">☺</button>
+                </div>
+                <div class="num-wrapper last-row space">
+                    <button class="num"></button>
+                </div>
+                <div class="num-wrapper last-row dot">
+                    <button class="num">.</button>
+                </div>
+                <div class="num-wrapper last-row return">
+                    <button class="num">↪</button>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="start-sec">
-        <button class="start">
+        <button class="start-game">
             <span>PLAY NOW</span>
         </button>
     </div>

@@ -23,9 +23,16 @@ const guessBtn = document.querySelector('.btn')
 const playAgainBtn = document.querySelector('.play-again')
 const nextLevelBtn = document.querySelector('.next-level')
 const startSec = document.querySelector('.start-sec')
-const startBtn = document.querySelector('.start')
+const startBtn = document.querySelector('.start-game')
 const word = document.querySelector('.word')
 const score = document.querySelector('[data-score]')
+const shift = document.querySelector('.shift')
+const backspace = document.querySelector('.backspace')
+const enterKey = document.querySelector('.return')
+const comma = document.querySelector('.comma')
+const emoji = document.querySelector('.emoji')
+const dot = document.querySelector('.dot')
+const keypad = document.querySelectorAll('.keypad-row .num:not(.shift):not(.backspace):not(.return):not(.comma):not(.emoji):not(.dot)')
 const words = Object.keys(options)
 let randomWord = "",
 randomHint = "";
@@ -94,6 +101,45 @@ const nextLevel = () => {
 const addScore = () => {
     score.innerText = parseInt(score.innerText) + 1
 }
+
+// Shift key 
+const toggleCasing = (toUpper = null) => {
+    keypad.forEach((key) => {
+        const currentText = key.innerText
+
+        if (toUpper === true) {
+            key.innerText = currentText.toUpperCase()
+        } else if (toUpper === false) {
+            key.innerText = currentText.toLowerCase()
+        } else {
+            key.innerText = 
+                currentText === currentText.toUpperCase()
+                    ? currentText.toLowerCase()
+                    : currentText.toUpperCase()
+        }
+    })
+}
+
+// Key click events
+keypad.forEach((key) => {
+    key.addEventListener('click', () => {
+        const keyText = key.innerText.replace(/\d+$/, '')
+        if (letterInput.value.length < letterInput.maxLength) {
+            letterInput.value += keyText.toLowerCase()
+        }
+    })
+})
+
+// Key events
+letterInput.addEventListener('focus', () => toggleCasing(true))
+letterInput.addEventListener('blur', () => toggleCasing(false))
+shift.addEventListener('click', () => toggleCasing())
+backspace.addEventListener('click', () => {
+    letterInput.value = letterInput.value.slice(0, -1)
+})
+enterKey.addEventListener('click', () => {
+    guessBtn.click()
+})
 
 // Event listener for Guess button
 guessBtn.addEventListener('click', () => {

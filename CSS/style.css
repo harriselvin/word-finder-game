@@ -130,7 +130,76 @@ body {
     display: none;
 }
 
-/* Number Pad */
+/* Keypad - Tablet */
+@media screen and (max-width: 800px) and (min-width: 500px) {
+    .keypad {
+        display: block;
+        margin-top: 2em;
+    }
+    .num-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 45px;
+        height: 45px;
+        border-radius: 5px;
+    }
+    
+    .num {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, #232323, #4a4a4a);
+        border-radius: 5px;
+        border: 1px solid white;
+        font-size: 20px;
+        color: rgb(128, 128, 128);
+        box-shadow: 2px 2px 3px rgba(0, 0, 0, .6);
+        transition: all .2s ease;
+        margin-left: -1em;
+    }
+    
+    .num:active {
+        scale: .95;
+        box-shadow: none;
+    }
+
+    .last-row * {
+        margin-left: -1.5em;
+    }
+
+    .shift {
+        width: 3em;
+        margin-left: -2em;
+    }
+
+    .backspace {
+        width: 3em;
+    }
+
+    .opt, .return {
+        width: 4em;
+    }
+
+    .opt {
+        margin-right: .6em;
+    }
+        
+    .opt .num, .return .num {
+        border-radius: 20px;
+    }
+
+    .space {
+        width: 12em;
+        margin-left: -4.6em;
+        margin-right: 4.6em;
+    }
+
+    .return {
+        margin-left: -.5em;
+    }
+}
+
+/* Keypad - Mobile */
 @media screen and (max-width: 500px) {
     .keypad {
         display: block;
@@ -172,7 +241,11 @@ body {
         margin-left: -2em;
     }
 
-    .backspace, .opt, .return {
+    .backspace {
+        width: 3em;
+    }
+
+    .opt, .return {
         width: 2.5em;
     }
 

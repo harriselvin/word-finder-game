@@ -26,7 +26,6 @@ const startSec = document.querySelector('.start-sec')
 const startBtn = document.querySelector('.start-game')
 const word = document.querySelector('.word')
 const score = document.querySelector('[data-score]')
-const shift = document.querySelector('.shift')
 const backspace = document.querySelector('.backspace')
 const enterKey = document.querySelector('.return')
 const comma = document.querySelector('.comma')
@@ -102,24 +101,6 @@ const addScore = () => {
     score.innerText = parseInt(score.innerText) + 1
 }
 
-// Shift key 
-const toggleCasing = (toUpper = null) => {
-    keypad.forEach((key) => {
-        const currentText = key.innerText
-
-        if (toUpper === true) {
-            key.innerText = currentText.toUpperCase()
-        } else if (toUpper === false) {
-            key.innerText = currentText.toLowerCase()
-        } else {
-            key.innerText = 
-                currentText === currentText.toUpperCase()
-                    ? currentText.toLowerCase()
-                    : currentText.toUpperCase()
-        }
-    })
-}
-
 // Key click events
 keypad.forEach((key) => {
     key.addEventListener('click', () => {
@@ -133,7 +114,6 @@ keypad.forEach((key) => {
 // Key events
 letterInput.addEventListener('focus', () => toggleCasing(true))
 letterInput.addEventListener('blur', () => toggleCasing(false))
-shift.addEventListener('click', () => toggleCasing())
 backspace.addEventListener('click', () => {
     letterInput.value = letterInput.value.slice(0, -1)
 })

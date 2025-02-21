@@ -15,10 +15,6 @@ body {
     display: none;
     min-height: 85vh;
     overflow-x: hidden;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; */
 }
 
 .keypad {
@@ -180,16 +176,8 @@ body {
         margin: 5px 0 0;
     }
 
-    .opt, .return {
+    .return {
         width: 4em;
-    }
-
-    .opt {
-        margin-right: .6em;
-    }
-        
-    .opt .num, .return .num {
-        border-radius: 20px;
     }
 
     .space {
@@ -255,16 +243,12 @@ body {
         margin: 4px 0 0;
     }
 
-    .opt, .return {
+    .return {
         width: 2.5em;
     }
 
     .opt {
         margin-right: .5em;
-    }
-        
-    .opt .num, .return .num {
-        border-radius: 20px;
     }
 
     .space {

@@ -17,10 +17,6 @@ body {
     overflow-x: hidden;
 }
 
-.keypad {
-    display: none;
-}
-
 .title h1 {
     font-size: 4rem;
     text-transform: uppercase;
@@ -101,6 +97,7 @@ body {
 .play-again-btn .play-again:hover {
     opacity: .8;
 }
+
 .next-level-btn .next-level {
     padding: 1em;
     width: 10em;
@@ -127,120 +124,63 @@ body {
     display: none;
 }
 
-/* Keypad - Tablet */
-@media screen and (max-width: 800px) and (min-width: 500px) {
-    .keypad {
-        display: block;
-        margin-top: 2em;
-    }
-    .num-wrapper {
-        position: relative;
-        display: inline-block;
-        width: 45px;
-        height: 45px;
-        border-radius: 5px;
-    }
-    
-    .num {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, #5f97be, #4A7B9D);
-        border-radius: 5px;
-        border: 1px solid white;
-        font-size: 20px;
-        color: white;
-        box-shadow: 2px 2px 3px rgba(0, 0, 0, .6);
-        transition: all .2s ease;
-        margin-left: -1em;
-        text-transform: uppercase;
-    }
-    
-    .num:active {
-        scale: .95;
-        box-shadow: none;
-    }
-
-    .last-row * {
-        margin-left: -1.8em;
-    }
-
-    .shift {
-        width: 3em;
-        margin-left: -2em;
-    }
-
-    .backspace {
-        width: 3em;
-    }
-
-    .backspace > * {
-        margin: 5px 0 0;
-    }
-
-    .return {
-        width: 4.8em;
-        margin-left: -1.5em;
-    }
+/* Keypad */
+.keypad {
+    margin: 2em auto;
 }
 
-/* Keypad - Mobile */
-@media screen and (max-width: 500px) {
-    .keypad {
-        display: block;
-        margin-top: 2em;
-    }
-    .num-wrapper {
-        position: relative;
-        display: inline-block;
-        width: 25px;
-        height: 25px;
-        border-radius: 5px;
-    }
-    
-    .num {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, #5f97be, #4A7B9D);
-        border-radius: 5px;
-        border: 1px solid white;
-        font-size: 12px;
-        color: white;
-        box-shadow: 2px 2px 3px rgba(0, 0, 0, .6);
-        transition: all .2s ease;
-        margin-left: -1em;
-        text-transform: uppercase;
-    }
-    
-    .num:active {
-        scale: .95;
-        box-shadow: none;
-    }
+.keypad > *{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15px, 1fr)); 
+    gap: 1cqi;
+    max-width: 500px;
+    width: 90vw;
+    margin: auto;
+    padding: clamp(5px, 100vw, .2cqi);
+}
 
-    .last-row * {
-        margin-left: -1.9em;
-    }
+.num-wrapper {
+    position: relative;
+    display: inline-block;
+    height: clamp(20px, 100vh, 40px);
+    border-radius: 5px;
+}
 
-    .shift {
-        width: 3em;
-        margin-left: -2em;
-    }
+.num {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #5f97be, #4A7B9D);
+    border-radius: 5px;
+    border: 1px solid white;
+    color: white;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, .6);
+    transition: all .2s ease;
+    margin-left: -1em;
+    text-transform: uppercase;
+    font-size: clamp(10px, 100vw, 1cqi);
+}
 
-    .backspace {
-        width: 3em;
-    }
+.num:active {
+    scale: .95;
+    box-shadow: none;
+}
 
-    .backspace > * {
-        height: 13px;
-        width: 13px;
-        margin: 4px 0 0;
-    }
+.last-row * {
+    margin-left: -1.8em;
+}
 
-    .return {
-        width: 2.9em;
-        margin-left: -.5em;
-    }
+.backspace {
+    min-width: 2em;
+}
+
+.backspace > * {
+    margin: 5px 0 0;
+}
+
+.return {
+    min-width: 2em;
+    margin-left: -1.5em;
 }
 
 /* Play now button */
@@ -318,4 +258,5 @@ body {
 footer {
     text-align: center;
     font-size: .8em;
+    margin: 1em 0 2em;
 }

@@ -19,18 +19,15 @@ const message = document.querySelector('.guess-msg')
 const guessAmount = document.querySelector('[data-amount]')
 const result = document.querySelector('.result')
 const letterInput = document.querySelector('.letter')
+const word = document.querySelector('.word')
+const score = document.querySelector('[data-score]')
 const guessBtn = document.querySelector('.btn')
 const playAgainBtn = document.querySelector('.play-again')
 const nextLevelBtn = document.querySelector('.next-level')
 const startSec = document.querySelector('.start-sec')
 const startBtn = document.querySelector('.start-game')
-const word = document.querySelector('.word')
-const score = document.querySelector('[data-score]')
 const backspace = document.querySelector('.backspace')
 const enterKey = document.querySelector('.return')
-const comma = document.querySelector('.comma')
-const emoji = document.querySelector('.emoji')
-const dot = document.querySelector('.dot')
 const keypad = document.querySelectorAll('.keypad-row .num:not(.shift):not(.backspace):not(.return):not(.comma):not(.emoji):not(.dot)')
 const words = Object.keys(options)
 let randomWord = "",
@@ -50,6 +47,14 @@ const init = () => {
     randomHint = options[randomWord]
     message.innerText = randomHint
     displayWord()
+
+     // Reset keypad buttons (enable all keys)
+     keypad.forEach((key) => {
+        key.disabled = false;
+    });
+
+    // Reset guess button
+    guessBtn.disabled = false;
 }
 
 // Start Game
@@ -104,9 +109,15 @@ const addScore = () => {
 // Key click events
 keypad.forEach((key) => {
     key.addEventListener('click', () => {
-        const keyText = key.innerText.replace(/\d+$/, '')
+        const keyText = key.innerText.replace(/\d+$/, '').toLowerCase()
+
         if (letterInput.value.length < letterInput.maxLength) {
-            letterInput.value += keyText.toLowerCase()
+            letterInput.value += keyText
+            guessBtn.click()
+
+            key.disabled = true
+            key.style.scale = .95;
+            key.style.boxShadow = "";
         }
     })
 })

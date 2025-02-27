@@ -48,9 +48,12 @@ const init = () => {
     message.innerText = randomHint
     displayWord()
 
+
      // Reset keypad buttons (enable all keys)
      keypad.forEach((key) => {
         key.disabled = false;
+        key.style.scale = 1;
+        key.style.opacity = 1;
     });
 
     // Reset guess button
@@ -109,15 +112,17 @@ const addScore = () => {
 // Key click events
 keypad.forEach((key) => {
     key.addEventListener('click', () => {
-        const keyText = key.innerText.replace(/\d+$/, '').toLowerCase()
+        const keyText = key.dataset.key || key.innerText.replace(/\d+$/, '').toLowerCase()
 
         if (letterInput.value.length < letterInput.maxLength) {
             letterInput.value += keyText
             guessBtn.click()
 
-            key.disabled = true
-            key.style.scale = .95;
-            key.style.boxShadow = "";
+            if (keyText !== "enter" && keyText !== "backspace") {
+                key.disabled = true
+                key.style.scale = .95;
+                key.style.opacity = .5;
+            }
         }
     })
 })

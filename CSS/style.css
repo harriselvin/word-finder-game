@@ -76,6 +76,10 @@ body {
     opacity: .8;
 }
 
+.btn-block, .letter-block {
+    display: none;
+}
+
 .play-again-btn .play-again {
     padding: 1em;
     width: 10em;
@@ -129,10 +133,10 @@ body {
     margin: 2em auto;
 }
 
-.keypad > *{
+.keypad > * {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15px, 1fr)); 
-    gap: 1cqi;
+    gap: .5cqi;
     max-width: 500px;
     width: 90vw;
     margin: auto;
@@ -170,17 +174,31 @@ body {
     margin-left: -1.8em;
 }
 
-.backspace {
+.return, .q, .backspace, .p {
     min-width: 2em;
 }
 
-.backspace > * {
-    margin: 5px 0 0;
+.p {
+    margin-left: 2.5cqmin;
+}
+
+.backspace {
+    margin-left: 3cqmin;
 }
 
 .return {
-    min-width: 2em;
-    margin-left: -1.5em;
+    min-width: 2.5em;
+    margin-left: .5cqmin;
+}
+
+.q {
+    margin-left: -.5cqmin;
+}
+
+.corner {
+    padding: 0 70%;
+    display: grid;
+    place-items: center;
 }
 
 /* Play now button */

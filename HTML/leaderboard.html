@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="N51xcqpXxwH1jZMc8DWcSQ-0vzj8C0uZKcJG-8Y-vOk" />
+    <meta name="description" content="Play the ultimate Word Finder and solver game online! Guess hidden words, unlock letters, and challenge your brain with exciting word puzzles. Can you solve them all before time runs out?">
+    <title>Word Finder Game - Play & Solve Hidden Word Puzzles Online</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+    <link rel="shortcut icon" href="favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="favicon/site.webmanifest" />
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <li><a href="./general.html" onclick="saveCategory('general')" data-category="general">General</a></li>
+            <li><a href="./science.html" onclick="saveCategory('science')" data-category="science">Science</a></li>
+            <li><a href="./sports.html" onclick="saveCategory('sports')" data-category="sports">Sports</a></li>
+            <li><a href="./movies.html" onclick="saveCategory('movies')" data-category="movies">Movies</a></li>
+            <li><a href="./biblical.html" onclick="saveCategory('biblical')" data-category="biblical">Biblical</a></li>
+            <li><a href="" aria-label="active">Leaderboard</a></li>
+        </nav>
+
+        <div class="title">
+            <h1>Word Finder</h1>
+        </div>
+        <div class="subtitle">
+            <h2>Leaderboard</h2>
+        </div>
+        <div>
+            <p>Top 10 scores for the last 24 hours</p>
+        </div>
+
+        <div class="table-container">
+            <table class="leaderboard" id="leaderboard" border="1px"></table>
+        </div>
+    </div>
+    <footer>
+        &copy; 2024 Elvin Harris - Word Finder | All Rights Reserved
+    </footer>
+    <script src="../Script/script.js" defer></script>
+    <!-- <script>
+        displayLeaderboard();
+    </script> -->
+</body>
+</html>

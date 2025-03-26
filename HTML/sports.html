@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="N51xcqpXxwH1jZMc8DWcSQ-0vzj8C0uZKcJG-8Y-vOk" />
+    <meta name="description" content="Play the ultimate Word Finder and solver game online! Guess hidden words, unlock letters, and challenge your brain with exciting word puzzles. Can you solve them all before time runs out?">
+    <title>Word Finder Game - Play & Solve Hidden Word Puzzles Online</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+    <link rel="shortcut icon" href="favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="favicon/site.webmanifest" />
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <li><a href="./general.html" onclick="saveCategory('general')" data-category="general">General</a></li>
+            <li><a href="./science.html" onclick="saveCategory('science')" data-category="science">Science</a></li>
+            <li><a href="" onclick="saveCategory('sports')" data-category="sports">Sports</a></li>
+            <li><a href="./movies.html" onclick="saveCategory('movies')" data-category="movies">Movies</a></li>
+            <li><a href="./biblical.html" onclick="saveCategory('biblical')" data-category="biblical">Biblical</a></li>
+            <li><a href="./leaderboard.html" aria-label="active">Leaderboard</a></li>
+        </nav>
+
+        <div class="title">
+            <h1>Word Finder</h1>
+        </div>
+        <div>
+            <h2>Sports</h2>
+        </div>
+        <div class="guess-msg"></div>
+        <div class="word"></div>
+        <div class="hint">
+            <p>You have <span data-amount><b class="hint-num">10</b> guesses</span> remaining</p>
+        </div>
+        <div class="result"></div>
+        <div class="score">
+            <p>Score: <span data-score>0</span></p>
+        </div>
+        <div class="desc-letter-block">
+            <p>Only one letter can be inserted at a time</p>
+        </div>
+        <div class="letter-block">
+            <label for="letter"></label>
+            <input type="text" id="letter" name="letter" class="letter" maxlength="1" autocomplete="off" onkeydown="return /[a-z]/i.test(event.key)" inputmode="none">
+        </div>
+        <div class="btn-block">
+            <button class="btn">Guess!</button>
+        </div>
+        <div class="play-again-btn">
+            <button class="play-again hide">Play Again!</button>
+        </div>
+        <div class="next-level-btn">
+            <button class="next-level hide">Continue</button>
+        </div>
+
+        <div class="keypad">
+            <div class="keypad-row">
+                <div class="num-wrapper fst-row corner q">
+                    <button class="num">q</button>
+                </div>
+                <div class="num-wrapper fst-row">
+                    <button class="num">w</button>
+                </div>
+                <div class="num-wrapper fst-row">
+                    <button class="num">e</button>
+                </div>
+                <div class="num-wrapper fst-row">
+                    <button class="num">r</button>
+                </div>
+                <div class="num-wrapper fst-row">
+                    <button class="num">t</button>
+                </div>
+                <div class="num-wrapper fst-row">
+                    <button class="num">y</button>
+                </div>
+                <div class="num-wrapper fst-row">
+                    <button class="num">u</button>
+                </div>
+                <div class="num-wrapper fst-row">
+                    <button class="num">i</button>
+                </div>
+                <div class="num-wrapper fst-row">
+                    <button class="num">o</button>
+                </div>
+                <div class="num-wrapper fst-row corner p">
+                    <button class="num">p</button>
+                </div>
+            </div>
+
+            <div class="keypad-row">
+                <div class="num-wrapper sec-row start">
+                    <button class="num">a</button>
+                </div>
+                <div class="num-wrapper sec-row">
+                    <button class="num">s</button>
+                </div>
+                <div class="num-wrapper sec-row">
+                    <button class="num">d</button>
+                </div>
+                <div class="num-wrapper sec-row">
+                    <button class="num">f<br></button>
+                </div>
+                <div class="num-wrapper sec-row">
+                    <button class="num">g</button>
+                </div>
+                <div class="num-wrapper sec-row">
+                    <button class="num">h</button>
+                </div>
+                <div class="num-wrapper sec-row">
+                    <button class="num">j<br></button>
+                </div>
+                <div class="num-wrapper sec-row">
+                    <button class="num">k</button>
+                </div>
+                <div class="num-wrapper sec-row end">
+                    <button class="num">l</button>
+                </div>
+            </div>
+
+            <div class="keypad-row">
+                <div class="num-wrapper last-row return corner">
+                    <button class="num">Enter</button>
+                </div>
+                <div class="num-wrapper third-row">
+                    <button class="num">z</button>
+                </div>
+                <div class="num-wrapper third-row">
+                    <button class="num">x</button>
+                </div>
+                <div class="num-wrapper third-row">
+                    <button class="num">c</button>
+                </div>
+                <div class="num-wrapper third-row">
+                    <button class="num">v</button>
+                </div>
+                <div class="num-wrapper third-row">
+                    <button class="num">b</button>
+                </div>
+                <div class="num-wrapper third-row">
+                    <button class="num">n</button>
+                </div>
+                <div class="num-wrapper third-row">
+                    <button class="num">m</button>
+                </div>
+                <div class="num-wrapper third-row upper corner backspace">
+                    <button class="num" data-key="backspace">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20"> <path fill="white" d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.9.89 1.59.89h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H7.07L2.4 12l4.66-7H22v14zm-11.59-2L14 13.41 17.59 17 19 15.59 15.41 12 19 8.41 17.59 7 14 10.59 10.41 7 9 8.41 12.59 12 9 15.59z"></path> </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        &copy; 2024 Elvin Harris - Word Finder | All Rights Reserved
+    </footer>
+    <script src="../Script/script.js" defer></script>
+    <!-- <script>
+        loadCategory("sports");
+    </script> -->
+</body>
+</html>

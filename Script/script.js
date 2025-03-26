@@ -1,16 +1,62 @@
 // Word & Hints Object
-const options = {
-    aroma: "A pleasing smell",
-    pepper: "Salt's partner",
-    halt: "put a stop to",
-    jump: "Rise suddenly",
-    shuffle: "Mix cards up",
-    combine: "Add; Mix",
-    chaos: "Total disorder",
-    labyrinth: "Maze",
-    disturb: "Interrupt; Upset",
-    shift: "Move; Period of water",
-    machine: "Device or appliance"
+const wordCategories = {
+    general: {
+        aroma: "A pleasing smell",
+        pepper: "Salt's partner",
+        halt: "put a stop to",
+        jump: "Rise suddenly",
+        shuffle: "Mix cards up",
+        combine: "Add; Mix",
+        chaos: "Total disorder",
+        labyrinth: "Maze",
+        disturb: "Interrupt; Upset",
+        shift: "Move; Period of water",
+        machine: "Device or appliance",
+        paris: "capital of France"
+    },
+    biblical: {
+        genesis: "Beginning",
+        exodus: "Going out",
+        leviticus: "Relating to the Levites",
+        numbers: "Counting",
+        deuteronomy: "Second law",
+        joshua: "God is salvation",
+        judges: "Leaders",
+        ruth: "Compassionate",
+        samuel: "Asked of God",
+        kings: "Rulers",
+    },
+    science: {
+        carbon: "Element",
+        oxygen: "Gas",
+        uranium: "Radioactive element",
+        atom: "Smallest unit of matter",
+        gravity: "Force pulling objects down",
+        energy: "Capacity to do work",
+        molecule: "Two or more atoms bonded",
+        H20: "chemical symbol for water",
+    },
+    sports: {
+        basketball: "Team sport with hoop",
+        soccer: "Team sport with ball",
+        tennis: "Racket sport",
+        golf: "Club sport",
+        football: "Team sport with ball",
+        dribble: "Move the ball skillfully",
+        penalty: "A punishment in sports",
+        referee: "Official in a game",
+        sprint: "Short burst of running",
+    },
+    movies: {
+        starwars: "Space fantasy series",
+        thehobbit: "Fantasy adventure series",
+        thelordoftherings: "Fantasy adventure series",
+        thehungergames: "Dystopian adventure series",
+        actor: "Performer in films",
+        director: "Controls the movie",
+        sequel: "A follow-up movie",
+        script: "Text of the movie",
+    }
 }
 
 // Initial References
@@ -24,27 +70,41 @@ const score = document.querySelector('[data-score]')
 const guessBtn = document.querySelector('.btn')
 const playAgainBtn = document.querySelector('.play-again')
 const nextLevelBtn = document.querySelector('.next-level')
-const startSec = document.querySelector('.start-sec')
-const startBtn = document.querySelector('.start-game')
-const backspace = document.querySelector('.backspace')
-const enterKey = document.querySelector('.return')
+// const startSec = document.querySelector('.start-sec')
+// const startBtn = document.querySelector('.start-game')
+// const backspace = document.querySelector('.backspace')
+// const enterKey = document.querySelector('.return')
 const keypad = document.querySelectorAll('.keypad-row .num:not(.shift):not(.backspace):not(.return):not(.comma):not(.emoji):not(.dot)')
-const words = Object.keys(options)
 let randomWord = "",
 randomHint = "";
 let winCount = 0,
 lossCount = 0;
+// Load words from the selected category
+let solvedWords = []
+let selectedCategory = "general" //, "science", "movies", "biblical", "sports"; 
+const words = Object.keys(wordCategories[selectedCategory])
 
 // Generate random value
-const generateRandomValue = (array) => Math.floor(Math.random() * array.length)
+const generateRandomValue = (array) =>  array.length ? Math.floor(Math.random() * array.length) : 0
 
 // Initial Function
 const init = () => {
     winCount = 0
     lossCount = 0
-    const randomIndex = generateRandomValue(words)
-    randomWord = words[randomIndex]
-    randomHint = options[randomWord]
+    score.innerText = "0"
+    
+    // Get remaining words (not yet solved)
+    let remainingWords = words.filter(word => !solvedWords.includes(word))
+
+    if (remainingWords.length === 0) {
+        solvedWords = []
+        remainingWords = [...words]
+    }
+
+    const randomIndex = generateRandomValue(remainingWords)
+    randomWord = remainingWords[randomIndex]
+    randomHint = wordCategories[selectedCategory][randomWord]
+
     message.innerText = randomHint
     displayWord()
 
@@ -60,22 +120,32 @@ const init = () => {
     guessBtn.disabled = false;
 }
 
-// Start Game
-startBtn.addEventListener("click", () => {
-    // startBtn.classList.add("hide")
-    startSec.style.display = "none"
-    
-    container.style.display = "block"
-    init()
-})
+// Saves category in localStorage
+function saveCategory(category) {
+    localStorage.setItem('selectedCategory', category)
+}
+
+// Load words from the selected category
+function loadCategory() {
+    const selectedCategory = localStorage.getItem('selectedCategory') || 'general'
+
+    if (wordCategories[selectedCategory]) {
+        displayWord(selectedCategory)
+        init()
+    } else {
+        console.error('Category not found: ', selectedCategory);
+    }
+}
 
 // Generate Word Function
 let currentWordState = []
 
 const displayWord = () => {
-    currentWordState = randomWord.split('').map(() => '_')
+    currentWordState = randomWord.split('').map(char => (char === " " ? " " : '_'))
     word.innerText = currentWordState.join('')
 }
+
+document.addEventListener('DOMContentLoaded', loadCategory)
 
 const maxGuesses = 10
 let remainingGuesses = maxGuesses
@@ -105,9 +175,126 @@ const nextLevel = () => {
     })
 }
 
-const addScore = () => {
+const saveScore = (playerName, score) => {
+    if (!playerName) {
+        console.error("Error: playerName is undefined!");
+        return
+    }
+
+    let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+
+    let selectedCategory = localStorage.getItem("selectedCategory") || "Unknown"; 
+
+    // Add new score
+    leaderboard.push({ 
+        name: playerName, 
+        score: score, 
+        category: selectedCategory 
+    });
+
+    // Save back to local storage
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard))
+
+    console.log(localStorage.getItem("leaderboard"));
+}
+
+const addUpScore = () => {
     score.innerText = parseInt(score.innerText) + 1
 }
+
+const addScore = () => {
+    let playerName = prompt('Enter your name for the leaderboard:')
+    if (playerName) {
+        let playerScore = parseInt(score.innerText);
+        saveScore(playerName, playerScore)
+    }
+
+    addUpScore()
+}
+
+const addLeaderboardEntry = (username, score) => {
+    let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || []
+    
+    const newEntry = {
+        username: username,
+        score: score,
+        timestamp: new Date().getTime()
+    }
+
+    leaderboard.push(newEntry)
+
+    localStorage.setItem('leaderboard', JSON.stringify(leaderboard))
+    
+    console.log(new Date().getTime());
+
+    removeScoreByTimestamp(newEntry.timestamp)
+    
+}
+
+const scheduleScoreRemoval = (timestamp) => {
+    currentTime = new Date().getTime()
+    const timeUntilRemoval = (timestamp + (2 * 60 * 1000)) - currentTime
+
+    if (timeUntilRemoval > 0) {
+        setTimeout(() => {
+            removeScoreByTimestamp(timestamp)
+        }, timeUntilRemoval)
+    }
+}
+
+const removeScoreByTimestamp = (timestamp) => {
+    let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+    // const oneDayAgo = new Date().getTime() - (2 * 60 * 1000); // 1 day (24 * 60 * 60 * 1000)
+
+    leaderboard = leaderboard.filter(entry => entry.timestamp !== timestamp)
+
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard))
+    
+    console.log(`score with timestamp: ${timestamp} removed.`);
+    displayLeaderboard()
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    displayLeaderboard()
+    let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || []
+    leaderboard.forEach(entry => scheduleScoreRemoval(entry.timestamp))
+    // removeScoreByTimestamp()
+})
+
+const displayLeaderboard = () => {
+    console.log(localStorage.getItem("leaderboard"));
+
+    let leaderboardDiv = document.getElementById("leaderboard")
+    if (!leaderboardDiv) {
+        console.warn("Error: leaderboard element not found! Skipping function execution.");
+        return;
+    }
+
+    let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+    if (!Array.isArray(leaderboard)) {
+        leaderboard = []
+    }
+
+    leaderboard.sort((a, b) => b.score - a.score)
+
+    let leaderboardHTML = '<tr class="table-head"><th>Player</th><th>Score</th><th>Category</th></tr>';
+
+    leaderboard.forEach(entry => { 
+        leaderboardHTML += `
+            <tr class="table-body">
+                <td>${entry.name}</td>
+                <td>${entry.score}</td>
+                <td>${entry.category}</td>
+            </tr>
+        `
+    })
+
+    leaderboardDiv.innerHTML = leaderboardHTML;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    displayLeaderboard()
+})
 
 // Key click events
 keypad.forEach((key) => {
@@ -128,14 +315,14 @@ keypad.forEach((key) => {
 })
 
 // Key events
-letterInput.addEventListener('focus', () => toggleCasing(true))
-letterInput.addEventListener('blur', () => toggleCasing(false))
-backspace.addEventListener('click', () => {
-    letterInput.value = letterInput.value.slice(0, -1)
-})
-enterKey.addEventListener('click', () => {
-    guessBtn.click()
-})
+// letterInput.addEventListener('focus', () => toggleCasing(true))
+// letterInput.addEventListener('blur', () => toggleCasing(false))
+// backspace.addEventListener('click', () => {
+//     letterInput.value = letterInput.value.slice(0, -1)
+// })
+// enterKey.addEventListener('click', () => {
+//     guessBtn.click()
+// })
 
 // Event listener for Guess button
 guessBtn.addEventListener('click', () => {
@@ -169,11 +356,13 @@ guessBtn.addEventListener('click', () => {
         result.innerText = `Game Over! The word was: ${randomWord}`
         guessBtn.disabled = true
         playAgain()
+        addScore()
     }
 
     // Check win conditions
     if (currentWordState.join('') === randomWord) {
         result.innerText = "You win!"
+        solvedWords.push(randomWord)
         guessBtn.disabled = true
         nextLevel()
     } 
@@ -184,6 +373,7 @@ guessBtn.addEventListener('click', () => {
 // Event listener for Play Again button
 playAgainBtn.addEventListener('click', () => {
     remainingGuesses = maxGuesses
+    solvedWords = []
     currentWordState = Array(randomWord.length).fill('_')
     word.innerText = currentWordState.join(' ')
     guessAmount.innerHTML = `<b class="hint-num">${remainingGuesses}</b> guesses`
@@ -193,6 +383,8 @@ playAgainBtn.addEventListener('click', () => {
 
     // Enable the button again
     guessBtn.disabled = false
+
+    init()
 })
 
 // Event listener for Next Level button
@@ -202,5 +394,5 @@ nextLevelBtn.addEventListener('click', () => {
 
     // Enable the button again
     guessBtn.disabled = false
-    addScore()
+    addUpScore()
 })

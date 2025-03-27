@@ -103,7 +103,8 @@ const init = () => {
 
     const randomIndex = generateRandomValue(remainingWords)
     randomWord = remainingWords[randomIndex]
-    randomHint = wordCategories[selectedCategory][randomWord]
+    const storedCategory = localStorage.getItem('selectedCategory') || 'general'
+    randomHint = wordCategories[storedCategory][randomWord]
 
     message.innerText = randomHint
     displayWord()
@@ -130,7 +131,12 @@ function loadCategory() {
     const selectedCategory = localStorage.getItem('selectedCategory') || 'general'
 
     if (wordCategories[selectedCategory]) {
-        displayWord(selectedCategory)
+        words.length = 0
+        words.push(...Object.keys(wordCategories[selectedCategory]))
+
+        console.log('Loaded Category:', selectedCategory);
+        console.log('Words in category:', words);
+        // displayWord(selectedCategory)
         init()
     } else {
         console.error('Category not found: ', selectedCategory);
@@ -196,6 +202,8 @@ const saveScore = (playerName, score) => {
     localStorage.setItem("leaderboard", JSON.stringify(leaderboard))
 
     console.log(localStorage.getItem("leaderboard"));
+
+    displayLeaderboard()
 }
 
 const addUpScore = () => {
@@ -266,16 +274,17 @@ const displayLeaderboard = () => {
 
     let leaderboardDiv = document.getElementById("leaderboard")
     if (!leaderboardDiv) {
-        console.warn("Error: leaderboard element not found! Skipping function execution.");
+        console.warn("Error: leaderboard element not found!");
         return;
     }
 
     let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+
+    leaderboard.sort((a, b) => b.score - a.score)
+
     if (!Array.isArray(leaderboard)) {
         leaderboard = []
     }
-
-    leaderboard.sort((a, b) => b.score - a.score)
 
     let leaderboardHTML = '<tr class="table-head"><th>Player</th><th>Score</th><th>Category</th></tr>';
 
@@ -290,6 +299,7 @@ const displayLeaderboard = () => {
     })
 
     leaderboardDiv.innerHTML = leaderboardHTML;
+    console.log("Leaderboard refreshed!");
 }
 
 document.addEventListener("DOMContentLoaded", function() {

@@ -303,7 +303,6 @@ const saveScore = (playerName, score) => {
 
 	// Save back to local storage
 	localStorage.setItem("leaderboard", JSON.stringify(leaderboard))
-	console.log(localStorage.getItem("leaderboard"));
 
 	displayLeaderboard()
 }
@@ -340,8 +339,6 @@ const addLeaderboardEntry = (username, score) => {
 
 	leaderboard.push(newEntry)
 	localStorage.setItem('leaderboard', JSON.stringify(leaderboard))
-	
-	console.log(`Added score at: ${newEntry.timestamp}`);
 
 	scheduleScoreRemoval(newEntry.timestamp)
 	displayLeaderboard()
@@ -365,8 +362,6 @@ const removeOldScores = () => {
 	leaderboard = leaderboard.filter(entry => entry.timestamp && entry.timestamp > oneDayAgo)
 
 	localStorage.setItem("leaderboard", JSON.stringify(leaderboard))
-	
-	console.log(`Old scores removed. Current leaderboard: `, leaderboard);
 	displayLeaderboard()
 }
 
@@ -378,8 +373,6 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 const displayLeaderboard = () => {
-	console.log(localStorage.getItem("leaderboard"));
-
 	let leaderboardDiv = document.getElementById("leaderboard")
 	if (!leaderboardDiv) {
 		console.warn("Error: leaderboard element not found!");
@@ -409,7 +402,6 @@ const displayLeaderboard = () => {
 	})
 
 	leaderboardDiv.innerHTML = leaderboardHTML;
-	console.log("Leaderboard refreshed!");
 }
 
 setInterval(removeOldScores, 3600000)

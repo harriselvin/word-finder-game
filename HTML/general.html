@@ -15,13 +15,61 @@
 </head>
 <body>
     <div class="container">
-        <nav>
-            <li><a href="" onclick="saveCategory('general')" data-category="general">General</a></li>
-            <li><a href="./science.html" onclick="saveCategory('science')" data-category="science">Science</a></li>
-            <li><a href="./sports.html" onclick="saveCategory('sports')" data-category="sports">Sports</a></li>
-            <li><a href="./movies.html" onclick="saveCategory('movies')" data-category="movies">Movies</a></li>
-            <li><a href="./biblical.html" onclick="saveCategory('biblical')" data-category="biblical">Biblical</a></li>
-            <li><a href="./leaderboard.html" aria-label="active">Leaderboard</a></li>
+        <nav class="desktop-nav">
+            <div class="logo">
+                <a href="/index.html">
+                    <img src="https://harriselvin.github.io/hostedImages/Images/Word_Finder-Logo.png" alt="logo">
+                </a>
+            </div>
+            <ul>
+                <li><a href="" onclick="saveCategory('general')" data-category="general" aria-label="active">General</a></li>
+                <li><a href="./science.html" onclick="saveCategory('science')" data-category="science">Science</a></li>
+                <li><a href="./sports.html" onclick="saveCategory('sports')" data-category="sports">Sports</a></li>
+                <li><a href="./movies.html" onclick="saveCategory('movies')" data-category="movies">Movies</a></li>
+                <li><a href="./biblical.html" onclick="saveCategory('biblical')" data-category="biblical">Biblical</a></li>
+                <li><a href="./leaderboard.html">Leaderboard</a></li>
+            </ul>
+            <div></div>
+        </nav>
+
+        <nav class="off-canvas-nav">
+            <div class="burger-menu">
+                <div class="logo">
+                    <a href="/index.html">
+                        <img src="https://harriselvin.github.io/hostedImages/Images/Word_Finder-Logo.png" alt="logo">
+                    </a>
+                </div>
+                <div>
+                    <img src="https://harriselvin.github.io/hostedImages/Images/menu-bar.png" alt="off-canvas-nav" class="open">
+                    <img src="https://harriselvin.github.io/hostedImages/Images/cross.png" alt="off-canvas-close" class="close">
+                </div>
+            </div>
+            <ul>
+                <li aria-label="active">
+                    <img src="https://harriselvin.github.io/hostedImages/Images/idea.png" alt="home" class="home-icon">
+                    <a href="" onclick="saveCategory('general')" data-category="general">General</a>
+                </li>
+                <li>
+                    <img src="https://harriselvin.github.io/hostedImages/Images/atom.png" alt="science-icon" class="science-icon">
+                    <a href="./science.html" onclick="saveCategory('science')" data-category="science">Science</a>
+                </li>
+                <li>
+                    <img src="https://harriselvin.github.io/hostedImages/Images/sports.png" alt="sports-icon" class="sports-icon">
+                    <a href="./sports.html" onclick="saveCategory('sports')" data-category="sports">Sports</a>
+                </li>
+                <li>
+                    <img src="https://harriselvin.github.io/hostedImages/Images/video.png" alt="movies-icon" class="movies-icon">
+                    <a href="./movies.html" onclick="saveCategory('movies')" data-category="movies">Movies</a>
+                </li>
+                <li>
+                    <img src="https://harriselvin.github.io/hostedImages/Images/bible.png" alt="biblical-icon" class="biblical-icon">
+                    <a href="./biblical.html" onclick="saveCategory('biblical')" data-category="biblical">Biblical</a>
+                </li>
+                <li>
+                    <img src="https://harriselvin.github.io/hostedImages/Images/podium.png" alt="leaderboard-icon" class="leaderboard-icon">
+                    <a href="./leaderboard.html">Leaderboard</a>
+                </li>
+            </ul>
         </nav>
 
         <div class="title">

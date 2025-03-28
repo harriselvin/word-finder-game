@@ -16,14 +16,66 @@
 <body>
     <div class="container">
         <div class="main-content">
-            <nav>
-                <li><a href="./HTML/general.html" onclick="saveCategory('general')" data-category="general">General</a></li>
-                <li><a href="./HTML/science.html" onclick="saveCategory('science')" data-category="science">Science</a></li>
-                <li><a href="./HTML/sports.html" onclick="saveCategory('sports')" data-category="sports">Sports</a></li>
-                <li><a href="./HTML/movies.html" onclick="saveCategory('movies')" data-category="movies">Movies</a></li>
-                <li><a href="./HTML/biblical.html" onclick="saveCategory('biblical')" data-category="biblical">Biblical</a></li>
-                <li><a href="./HTML/leaderboard.html">View Leaderboard</a></li>
+            <nav class="desktop-nav">
+                <div class="logo">
+                    <a href="">
+                        <img src="https://harriselvin.github.io/hostedImages/Images/Word_Finder-Logo.png" alt="logo">
+                    </a>
+                </div>
+                <ul>
+                    <li><a href="./HTML/general.html" onclick="saveCategory('general')" data-category="general">General</a></li>
+                    <li><a href="./HTML/science.html" onclick="saveCategory('science')" data-category="science">Science</a></li>
+                    <li><a href="./HTML/sports.html" onclick="saveCategory('sports')" data-category="sports">Sports</a></li>
+                    <li><a href="./HTML/movies.html" onclick="saveCategory('movies')" data-category="movies">Movies</a></li>
+                    <li><a href="./HTML/biblical.html" onclick="saveCategory('biblical')" data-category="biblical">Biblical</a></li>
+                    <li><a href="./HTML/leaderboard.html">Leaderboard</a></li>
+                </ul>
+                <div></div>
             </nav>
+
+            <nav class="off-canvas-nav">
+                <div class="burger-menu">
+                    <div class="logo">
+                        <a href="">
+                            <img src="https://harriselvin.github.io/hostedImages/Images/Word_Finder-Logo.png" alt="logo">
+                        </a>
+                    </div>
+                    <div>
+                        <img src="https://harriselvin.github.io/hostedImages/Images/menu-bar.png" alt="off-canvas-nav" class="open">
+                        <img src="https://harriselvin.github.io/hostedImages/Images/cross.png" alt="off-canvas-close" class="close">
+                    </div>
+                </div>
+                <ul>
+                    <li>
+                        <img src="https://harriselvin.github.io/hostedImages/Images/idea.png" alt="home" class="home-icon">
+                        <a href="./HTML/general.html" onclick="saveCategory('general')" data-category="general">General</a>
+                    </li>
+                    <li>
+                        <img src="https://harriselvin.github.io/hostedImages/Images/atom.png" alt="science-icon" class="science-icon">
+                        <a href="./HTML/science.html" onclick="saveCategory('science')" data-category="science">Science</a>
+                    </li>
+                    <li>
+                        <img src="https://harriselvin.github.io/hostedImages/Images/sports.png" alt="sports-icon" class="sports-icon">
+                        <a href="./HTML/sports.html" onclick="saveCategory('sports')" data-category="sports">Sports</a>
+                    </li>
+                    <li>
+                        <img src="https://harriselvin.github.io/hostedImages/Images/video.png" alt="movies-icon" class="movies-icon">
+                        <a href="./HTML/movies.html" onclick="saveCategory('movies')" data-category="movies">Movies</a>
+                    </li>
+                    <li>
+                        <img src="https://harriselvin.github.io/hostedImages/Images/bible.png" alt="biblical-icon" class="biblical-icon">
+                        <a href="./HTML/biblical.html" onclick="saveCategory('biblical')" data-category="biblical">Biblical</a>
+                    </li>
+                    <li>
+                        <img src="https://harriselvin.github.io/hostedImages/Images/podium.png" alt="leaderboard-icon" class="leaderboard-icon">
+                        <a href="./HTML/leaderboard.html">Leaderboard</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="off-canvas">
+
+            </div>
     
             <div class="title">
                 <h1>Welcome to Word Finder!</h1>
@@ -41,18 +93,14 @@
                     Click on any one of the above links in the nav to select your category.
                 </p>
             </div>
-    
-            <!-- <div id="content">
-                
-            </div> -->
         </div>
-        <div class="under-construction">
+        <!-- <div class="under-construction">
             <img src="https://custom-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/8103728/142995_42655.png" alt="">
-        </div>
+        </div> -->
     </div>
-    <!-- <footer>
+    <footer>
         &copy; 2024 Elvin Harris - Word Finder | All Rights Reserved
-    </footer> -->
+    </footer>
     <script src="./Script/script.js" defer></script>
 </body>
 </html>

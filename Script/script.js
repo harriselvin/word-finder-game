@@ -72,11 +72,22 @@ const wordCategories = {
 		miracle: "Supernatural event",
 		elijah: "Prophet who called fire",
 		elisha: "Prophet with double portion",
+		isaiah: "Prophet who saw God",
+		jeremiah: "Prophet who wept for God's people",
 		gideon: "Judge with 300 men",
+		hezekiah: "King who's life got prolonged",
+		abraham: "Father of faith",
+		isaac: "Son of promise (to Jacob)",
 		paul: "Apostle to the Gentiles",
 		peter: "The rock; Disciple",
+		jesus: "Savior of the world",
 		jonah: "Swallowed by a great fish",
+		philemon: "A Christian who forgave his slave",
 		daniel: "Prophet in the lion’s den",
+		raphael: "Archangel of healing",
+		michael: "Archangel depicted as a warrior",
+		gabriel: "Messenger Archangel",
+		urial: "Archangel associated with wisdom",
 		noah: "Built the ark",
 		joseph: "Dream interpreter",
 		miriam: "Sister of Moses"
@@ -102,6 +113,7 @@ const wordCategories = {
 		eclipse: "Sun or moon covered",
 		circuit: "Path for electricity",
 		altitude: "Height above ground",
+		latitude: "Distance from equator",
 		osmosis: "Water movement in cells",
 		vaccine: "Disease prevention shot"
 	},
@@ -110,7 +122,10 @@ const wordCategories = {
 		soccer: "Team sport where you kick a ball around",
 		tennis: "Racket sport",
 		golf: "Club sport",
-		football: "Team sport with ball",
+		football: "Team sport with ball and helmet",
+		baseball: "Team sport with bat and ball",
+		olympics: "International sports competition",
+		rugby: "South African sport similar to football",
 		dribble: "Move the ball skillfully",
 		penalty: "A punishment in sports",
 		referee: "Official in a game",
@@ -146,11 +161,21 @@ const wordCategories = {
 		stunt: "Dangerous movie act",
 		reboot: "Revived movie series",
 		protagonist: "Main character",
+		antagonist: "Main character's enemy",
+		ending: "Final part of a movie",
+		credits: "List of movie makers",
+		leadingman: "Main male actor",
+		leadinglady: "Main female actor",
 		villain: "Antagonist or bad guy",
+		hero: "Protagonist or good guy",
 		montage: "Sequence of quick shots",
+		monologue: "Long speech in a movie",
 		blockbuster: "Huge hit movie",
 		cinematography: "Art of movie visuals",
+		editing: "Movie post-production process",
 		trailer: "Movie preview",
+		sequelitis: "Overuse of sequels",
+		remake: "New version of a movie",
 		screenplay: "Written script",
 		extra: "Background actor",
 		cliffhanger: "Tense unresolved ending"
@@ -177,11 +202,30 @@ let solvedWords = []
 let selectedCategory = "general" 
 const words = Object.keys(wordCategories[selectedCategory])
 
+let unloadConfirmed = false 
+
 window.addEventListener('beforeunload', (event) => {
-	if (score.innerText > 0) {
+	if (score.innerText > 0 && !unloadConfirmed) {
 		event.preventDefault()
 		event.returnValue = "Are you sure you want to leave? Your progress will be lost."
+		unloadConfirmed = true
 	}
+})
+
+let confirmationShow = false
+
+const links = document.querySelectorAll('a')
+links.forEach(link => {
+	link.addEventListener('click', (e) => {
+		if (score.innerText > 0 && !confirmationShow) {
+			confirmationShow = true
+			const userConfirmed = confirm('You have unsaved progress. Are you sure you want to leave?')
+			if (!userConfirmed) {
+				e.preventDefault()
+				confirmationShow = false
+			}
+		}
+	})
 })
 
 window.onload = function () {
@@ -255,9 +299,17 @@ function saveCategory(category) {
 
 document.querySelectorAll('.category-btn').forEach(button => {
 	button.addEventListener('click', (e) => {
-		const category = e.target.dataset.category
-		saveCategory(category)
-		location.reload()
+		const category = e.target.dataset.category;
+        if (category === localStorage.getItem('selectedCategory')) return; // Prevent reloading if the same category is selected
+        
+        if (score.innerText > 0) {
+            const userConfirmed = confirm('You have unsaved progress. Are you sure you want to change the category?');
+            if (!userConfirmed) return; // Stop the category change if canceled
+        }
+        
+        // Save the new category and reload
+        localStorage.setItem('selectedCategory', category);
+        location.reload();
 	})
 })
 

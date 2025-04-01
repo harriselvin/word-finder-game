@@ -1,3 +1,23 @@
+// Import Firebase 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+import { getDatabase, ref, push, onValue, query, orderByChild, remove } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+
+// Firebase Configuration
+const firebaseConfig = {
+	apiKey: "AIzaSyBmNhbCmvNanVHVi2eSkGM6x5NOxbNDK6o",
+	authDomain: "word-finder-leaderboard.firebaseapp.com",
+	databaseURL: "https://word-finder-leaderboard-default-rtdb.firebaseio.com",
+	projectId: "word-finder-leaderboard",
+	storageBucket: "word-finder-leaderboard.firebasestorage.app",
+	messagingSenderId: "546576063050",
+	appId: "1:546576063050:web:a15b99187cbb19cf60a4b3",
+	measurementId: "G-FWNLBBHDQN"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
 // Word & Hints Object
 const wordCategories = {
 	general: {
@@ -233,6 +253,14 @@ function saveCategory(category) {
 	localStorage.setItem('selectedCategory', category)
 }
 
+document.querySelectorAll('.category-btn').forEach(button => {
+	button.addEventListener('click', (e) => {
+		const category = e.target.dataset.category
+		saveCategory(category)
+		location.reload()
+	})
+})
+
 // Load words from the selected category
 function loadCategory() {
 	const selectedCategory = localStorage.getItem('selectedCategory') || 'general'
@@ -285,26 +313,25 @@ const nextLevel = () => {
 }
 
 const saveScore = (playerName, score) => {
-	if (!playerName) {
+	if (!playerName || score === null) {
 		console.error("Error: Invalid player name or score!");
 		return
 	}
 
-	let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
 	let selectedCategory = localStorage.getItem("selectedCategory") || "Unknown"; 
 
-	// Add new score
-	leaderboard.push({ 
-		name: playerName, 
-		score: score, 
-		category: selectedCategory ,
+	push(ref(db, "leaderboard"), {
+		name: playerName,
+		score: score,
+		category: selectedCategory,
 		timestamp: new Date().getTime()
-	});
+	}).then(() => {
+		console.log("Score saved successfully!");
+		displayLeaderboard()
+	}).catch(error => {
+		console.error("Error saving score: ", error);
+	})
 
-	// Save back to local storage
-	localStorage.setItem("leaderboard", JSON.stringify(leaderboard))
-
-	displayLeaderboard()
 }
 
 const addUpScore = () => {
@@ -356,13 +383,22 @@ const scheduleScoreRemoval = (timestamp) => {
 }
 
 const removeOldScores = () => {
-	let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+	const leaderboardRef = ref(db, "leaderboard")
 	const oneDayAgo = new Date().getTime() - (24 * 60 * 60 * 1000);
 
-	leaderboard = leaderboard.filter(entry => entry.timestamp && entry.timestamp > oneDayAgo)
-
-	localStorage.setItem("leaderboard", JSON.stringify(leaderboard))
-	displayLeaderboard()
+	onValue(leaderboardRef, (snapshot) => {
+		const leaderboardData = snapshot.val()
+		if (leaderboardData) {
+			Object.entries(leaderboardData).forEach(([key, entry]) => {
+				if (entry.timestamp && entry.timestamp < oneDayAgo) {
+					const entryRef = ref(db, `leaderboard/${key}`)
+					remove(entryRef)
+						.then(() => console.log(`Remove score for ${entry.name}`))
+						.catch(error => console.error("Error removing score: ", error))
+				}
+			})
+		}
+	}, { onlyOnce: true })
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -373,35 +409,29 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 const displayLeaderboard = () => {
-	let leaderboardDiv = document.getElementById("leaderboard")
-	if (!leaderboardDiv) {
-		console.warn("Error: leaderboard element not found!");
-		return;
-	}
+	const leaderboardRef = query(ref(db, "leaderboard"), orderByChild("score"))
 
-	let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+	onValue(leaderboardRef, (snapshot) => {
+		const leaderboardData = snapshot.val()
+		const leaderboardArray = leaderboardData ? Object.values(leaderboardData) : []
 
-	leaderboard.sort((a, b) => b.score - a.score)
+		leaderboardArray.sort((a, b) => b.score - a.score)
 
-	leaderboard = leaderboard.slice(0, 10)
+		const topTen = leaderboardArray.slice(0, 10)
 
-	if (!Array.isArray(leaderboard)) {
-		leaderboard = []
-	}
+		const leaderboardElement = document.getElementById("leaderboard")
+		leaderboardElement.innerHTML = ""
 
-	let leaderboardHTML = '<tr class="table-head"><th>Player</th><th>Score</th><th>Category</th></tr>';
-
-	leaderboard.forEach(entry => { 
-		leaderboardHTML += `
-			<tr class="table-body">
-				<td>${entry.name}</td>
+		topTen.forEach((entry, index) => {
+			let entryElement = document.createElement("tr")
+			entryElement.innerHTML = `
+				<td>${index + 1}</td>
+				<td><strong>${entry.name}</strong</td>
 				<td>${entry.score}</td>
-				<td>${entry.category}</td>
-			</tr>
-		`
+				<td>${entry.category}</td>`
+			leaderboardElement.appendChild(entryElement)
+		})
 	})
-
-	leaderboardDiv.innerHTML = leaderboardHTML;
 }
 
 setInterval(removeOldScores, 3600000)
@@ -501,5 +531,4 @@ nextLevelBtn.addEventListener('click', () => {
 
 	// Enable the button again
 	guessBtn.disabled = false
-	// addUpScore()
 })

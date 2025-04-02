@@ -339,9 +339,9 @@ body {
 
 /* Leaderboard */
 .table-container {
-    /* border: 1px solid red; */
+    /* border: 1px solid black; */
     padding: 1em;
-    width: clamp(18em, 100vw, 50%);
+    width: clamp(20em, 100vw, 50%);
     margin: 0 auto;
     background-color: #a5a4a4;
 }

@@ -6,172 +6,7 @@ import { getDatabase, ref, push, onValue, query, orderByChild, remove } from "ht
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Word & Hints Object
-const wordCategories = {
-	general: {
-		aroma: "A pleasing smell",
-		pepper: "Salt's partner",
-		halt: "put a stop to",
-		jump: "Rise suddenly",
-		shuffle: "Mix cards up",
-		combine: "Add; Mix",
-		chaos: "Total disorder",
-		labyrinth: "Maze",
-		disturb: "Interrupt; Upset",
-		shift: "Move; Period of water",
-		machine: "Device or appliance",
-		paris: "Capital of France",
-		blink: 'Quick eye movement',
-		glimpse: 'A brief look',
-		echo: 'Repeated sound',
-		swift: 'Fast; Quick',
-		puzzle: 'Mystery; Brain teaser',
-		glow: "Soft light",
-		haste: "Quick action",
-		pluck: "Pull sharply",
-		stumble: "Trip or lose balance",
-		whisper: "Speak softly",
-		timber: "Wood for building",
-		twist: "Bend or turn",
-		vault: "Arched structure or leap",
-		breeze: "Gentle wind",
-		creek: "Small stream"
-	},
-	biblical: {
-		genesis: "Beginning",
-		exodus: "Going out",
-		leviticus: "Relating to the Levites",
-		numbers: "Counting",
-		deuteronomy: "Second law",
-		joshua: "God is salvation",
-		judges: "Leaders (similar)",
-		ruth: "Compassionate",
-		samuel: "Asked of God",
-		kings: "Rulers (similar)",
-		psalms: "Song and prayers",
-		proverbs: "Wise sayings",
-		lamentations: "Expressions of sorrow",
-		solomon: "Wise king",
-		apostle: "Messenger of Christ",
-		david: "heart after God's own heart",
-		revelation: "End-time prophecy",
-		acts: "Early church events",
-		revival: "Spiritual awakening",
-		miracle: "Supernatural event",
-		elijah: "Prophet who called fire",
-		elisha: "Prophet with double portion",
-		isaiah: "Prophet who saw God",
-		jeremiah: "Prophet who wept for God's people",
-		gideon: "Judge with 300 men",
-		hezekiah: "King who's life got prolonged",
-		abraham: "Father of faith",
-		isaac: "Son of promise (to Jacob)",
-		paul: "Apostle to the Gentiles",
-		peter: "The rock; Disciple",
-		jesus: "Savior of the world",
-		jonah: "Swallowed by a great fish",
-		philemon: "A Christian who forgave his slave",
-		daniel: "Prophet in the lion’s den",
-		raphael: "Archangel of healing",
-		michael: "Archangel depicted as a warrior",
-		gabriel: "Messenger Archangel",
-		urial: "Archangel associated with wisdom",
-		noah: "Built the ark",
-		joseph: "Dream interpreter",
-		miriam: "Sister of Moses"
-	},
-	science: {
-		carbon: "Element",
-		oxygen: "Gas",
-		uranium: "Radioactive element",
-		atom: "Smallest unit of matter",
-		gravity: "Force pulling objects down",
-		energy: "Capacity to do work",
-		molecule: "Two or more atoms bonded",
-		neutron: "Neutral particle",
-		photosynthesis: "Plant energy process",
-		voltage: "Electrical potential",
-		fusion: "Joining atoms",
-		protein: "Essential body nutrient",
-		plasma: "State of matter",
-		quark: "Fundamental particle",
-		enzyme: "Biological catalyst",
-		telescope: "Device to see far",
-		meteor: "Shooting star",
-		eclipse: "Sun or moon covered",
-		circuit: "Path for electricity",
-		altitude: "Height above ground",
-		latitude: "Distance from equator",
-		osmosis: "Water movement in cells",
-		vaccine: "Disease prevention shot"
-	},
-	sports: {
-		basketball: "Team sport with hoop",
-		soccer: "Team sport where you kick a ball around",
-		tennis: "Racket sport",
-		golf: "Club sport",
-		football: "Team sport with ball and helmet",
-		baseball: "Team sport with bat and ball",
-		olympics: "International sports competition",
-		rugby: "South African sport similar to football",
-		dribble: "Move the ball skillfully",
-		penalty: "A punishment in sports",
-		referee: "Official in a game",
-		sprint: "Short burst of running",
-		marathon: "Long-distance race",
-		pitcher: "Baseball thrower",
-		goalkeeper: "Defends the goal",
-		judo: "Japanese martial arts",
-		overtime: "Extra game time",
-		hurdle: "Obstacle in running",
-		knockout: "Instant fight win",
-		serve: "Start in tennis",
-		strike: "Bowling or baseball term",
-		dunk: "Basketball slam",
-		relay: "Team running race",
-		pitch: "Soccer or baseball field",
-		match: "Game between opponents",
-		helm: "Leader in a team",
-		parry: "Fencing block"
-	},
-	movies: {
-		starwars: "Space fantasy series",
-		thehobbit: "Fantasy adventure series",
-		thelordoftherings: "Fantasy adventure series",
-		thehungergames: "Dystopian adventure series",
-		actor: "Performer in films",
-		director: "Controls or leads the movie",
-		sequel: "A follow-up movie",
-		script: "Text of the movie",
-		trilogy: "Three-part series",
-		cameo: "Brief guest appearance",
-		soundtrack: "Movie music",
-		stunt: "Dangerous movie act",
-		reboot: "Revived movie series",
-		protagonist: "Main character",
-		antagonist: "Main character's enemy",
-		ending: "Final part of a movie",
-		credits: "List of movie makers",
-		leadingman: "Main male actor",
-		leadinglady: "Main female actor",
-		villain: "Antagonist or bad guy",
-		hero: "Protagonist or good guy",
-		montage: "Sequence of quick shots",
-		monologue: "Long speech in a movie",
-		blockbuster: "Huge hit movie",
-		cinematography: "Art of movie visuals",
-		editing: "Movie post-production process",
-		trailer: "Movie preview",
-		sequelitis: "Overuse of sequels",
-		remake: "New version of a movie",
-		screenplay: "Written script",
-		extra: "Background actor",
-		cliffhanger: "Tense unresolved ending"
-	}
-}
-
 // Initial References
-const container = document.querySelector('.container')
 const message = document.querySelector('.guess-msg') 
 const guessAmount = document.querySelector('[data-amount]')
 const result = document.querySelector('.result')
@@ -184,11 +19,7 @@ const nextLevelBtn = document.querySelector('.next-level')
 const keypad = document.querySelectorAll('.keypad-row .num:not(.backspace):not(.return)')
 let randomWord = "",
 randomHint = "";
-let winCount = 0,
-lossCount = 0;
 let solvedWords = []
-let selectedCategory = "general" 
-const words = Object.keys(wordCategories[selectedCategory])
 
 let unloadConfirmed = false 
 
@@ -219,10 +50,12 @@ links.forEach(link => {
 window.onload = function () {
 	localStorage.setItem('score', 0)
 	score.innerText = "0"
-}
+	fetchWordCategories()
 
-// Generate random value
-const generateRandomValue = (array) =>  array.length ? Math.floor(Math.random() * array.length) : 0
+	if (sessionStorage.getItem("lastPage") !== "leaderboard") {
+        fetchWordCategories();  // Only fetch if not coming from the leaderboard
+    }
+}
 
 const navContainer = document.querySelector('.off-canvas-nav ul')
 const openMenu = document.querySelector('.burger-menu img.open')
@@ -243,10 +76,37 @@ closeMenu.addEventListener('click', function () {
 	body.style.overflow = ''
 })
 
+let wordCategories = {}
+
+const fetchWordCategories = async () => {
+	try {
+		const response = await fetch('https://harriselvin.github.io/word-finder-api/data/data.json')
+		if (!response.ok) {
+			throw new Error("failed to fetch data")
+		}
+		wordCategories = await response.json()
+		
+		init()
+	} catch (error) {
+		console.error("Error fetching word categories: ", error);
+		alert("Failed to load word categories. Please check your internet connection.")
+	}
+}
+
+// Generate random value
+const generateRandomValue = (array) =>  array.length ? Math.floor(Math.random() * array.length) : 0
+
 // Initial Function
 const init = () => {
-	winCount = 0
-	lossCount = 0
+	const selectedCategory = localStorage.getItem('selectedCategory') || 'general'
+	if (!wordCategories[selectedCategory]) {
+		console.error("Category not found: ", selectedCategory);
+		return
+	}
+
+	resetUI()
+
+	const words =Object.keys(wordCategories[selectedCategory])
 
 	let storedScore = localStorage.getItem('score') || 0
 	score.innerText = storedScore
@@ -261,24 +121,40 @@ const init = () => {
 
 	const randomIndex = generateRandomValue(remainingWords)
 	randomWord = remainingWords[randomIndex]
-	const storedCategory = localStorage.getItem('selectedCategory') || 'general'
-	randomHint = wordCategories[storedCategory][randomWord]
-
+	randomHint = wordCategories[selectedCategory][randomWord]
+	
+	word.innerHTML = "_ ".repeat(randomWord.length)
 	message.innerText = randomHint
+
+	resetKeypad()
+	resetGuessButton()
+	
 	displayWord()
+}
 
+// Reset UI elements (word, guesses, etc.)
+const resetUI = () => {
+	word.innerHTML = '';
+	guessAmount.innerHTML = '';
+	result.innerText = '';
+	letterInput.value = '';
+	remainingGuesses = maxGuesses;
+};
 
-	// Reset keypad buttons (enable all keys)
+// Reset the keypad buttons
+const resetKeypad = () => {
 	keypad.forEach((key) => {
 		key.disabled = false;
 		key.style.scale = 1;
 		key.style.opacity = 1;
 		key.style.cursor = "pointer";
 	});
+};
 
-	// Reset guess button
+// Reset the guess button
+const resetGuessButton = () => {
 	guessBtn.disabled = false;
-}
+};
 
 // Saves category in localStorage
 function saveCategory(category) {
@@ -288,22 +164,31 @@ function saveCategory(category) {
 document.querySelectorAll('.category-btn').forEach(button => {
 	button.addEventListener('click', (e) => {
 		const category = e.target.dataset.category;
-        if (category === localStorage.getItem('selectedCategory')) return; // Prevent reloading if the same category is selected
+		const currentCategory = localStorage.getItem('selectedCategory');
+		
+		// Prevent reloading if the same category is selected
+        if (category === currentCategory) return; 
         
         if (score.innerText > 0) {
             const userConfirmed = confirm('You have unsaved progress. Are you sure you want to change the category?');
             if (!userConfirmed) return; // Stop the category change if canceled
         }
-        
+
         // Save the new category and reload
         localStorage.setItem('selectedCategory', category);
-        location.reload();
+		solvedWords = []
+
+		window.location.reload();
+        init()
+		loadCategory()
 	})
 })
 
 // Load words from the selected category
 function loadCategory() {
 	const selectedCategory = localStorage.getItem('selectedCategory') || 'general'
+
+	let words = Object.keys(wordCategories[selectedCategory])
 
 	if (wordCategories[selectedCategory]) {
 		words.length = 0
@@ -313,6 +198,18 @@ function loadCategory() {
 		console.error('Category not found: ', selectedCategory);
 	}
 }
+
+document.querySelector('.leaderboard-link').addEventListener('click', () => {
+	sessionStorage.setItem("lastPage", "leaderboard");
+	window.location.href = "leaderboard.html";
+})
+
+window.addEventListener("pageshow", function (event) {
+    if (sessionStorage.getItem("lastPage") === "leaderboard") {
+        sessionStorage.removeItem("lastPage");  // Clear after returning
+        window.location.reload(); // Ensure fresh state
+    }
+});
 
 // Generate Word Function
 let currentWordState = []

@@ -104,8 +104,6 @@ const init = () => {
 		return
 	}
 
-	resetUI()
-
 	const words =Object.keys(wordCategories[selectedCategory])
 
 	let storedScore = localStorage.getItem('score') || 0
@@ -131,15 +129,6 @@ const init = () => {
 	
 	displayWord()
 }
-
-// Reset UI elements (word, guesses, etc.)
-const resetUI = () => {
-	word.innerHTML = '';
-	guessAmount.innerHTML = '';
-	result.innerText = '';
-	letterInput.value = '';
-	remainingGuesses = maxGuesses;
-};
 
 // Reset the keypad buttons
 const resetKeypad = () => {

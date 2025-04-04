@@ -48,13 +48,13 @@ links.forEach(link => {
 })
 
 window.onload = function () {
-	localStorage.setItem('score', 0)
-	score.innerText = "0"
-	fetchWordCategories()
-
-	if (sessionStorage.getItem("lastPage") !== "leaderboard") {
-        fetchWordCategories();  // Only fetch if not coming from the leaderboard
-    }
+	let storedScore = localStorage.getItem('score');
+	if (storedScore === null) {
+		localStorage.setItem('score', 0);
+		storedScore = 0;
+	}
+	score.innerText = storedScore;
+	fetchWordCategories();
 }
 
 const navContainer = document.querySelector('.off-canvas-nav ul')
@@ -165,11 +165,12 @@ document.querySelectorAll('.category-btn').forEach(button => {
 
         // Save the new category and reload
         localStorage.setItem('selectedCategory', category);
+		
 		solvedWords = []
 
-		window.location.reload();
-        init()
-		loadCategory()
+		setTimeout(() => {
+            window.location.reload();
+        }, 100);
 	})
 })
 
@@ -187,18 +188,6 @@ function loadCategory() {
 		console.error('Category not found: ', selectedCategory);
 	}
 }
-
-document.querySelector('.leaderboard-link').addEventListener('click', () => {
-	sessionStorage.setItem("lastPage", "leaderboard");
-	window.location.href = "leaderboard.html";
-})
-
-window.addEventListener("pageshow", function (event) {
-    if (sessionStorage.getItem("lastPage") === "leaderboard") {
-        sessionStorage.removeItem("lastPage");  // Clear after returning
-        window.location.reload(); // Ensure fresh state
-    }
-});
 
 // Generate Word Function
 let currentWordState = []

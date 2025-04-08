@@ -86,7 +86,8 @@ const fetchWordCategories = async () => {
 		}
 		wordCategories = await response.json()
 		
-		init()
+		// init()
+		loadCategory()
 	} catch (error) {
 		console.error("Error fetching word categories: ", error);
 		alert("Failed to load word categories. Please check your internet connection.")
@@ -197,7 +198,7 @@ const displayWord = () => {
 	word.innerText = currentWordState.join('')
 }
 
-document.addEventListener('DOMContentLoaded', loadCategory)
+// document.addEventListener('DOMContentLoaded', loadCategory)
 
 const maxGuesses = 10
 let remainingGuesses = maxGuesses

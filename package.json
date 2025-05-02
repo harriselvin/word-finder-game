@@ -15,7 +15,7 @@
   "rules": {
     "leaderboard": {
       ".read": true,
-      ".write": true
+      ".write": "newData.child('score').isNumber() && newData.child('name').isString()"
     }
   }
 }

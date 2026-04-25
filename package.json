@@ -11,14 +11,5 @@
   "description": "",
   "dependencies": {
     "firebase": "^11.5.0"
-  },
-  "rules": {
-    "leaderboard": {
-      ".read": true,
-      "$entryId": {
-        ".write": "newData.child('score').isNumber() && newData.child('name').isString()",
-        ".validate": "newData.hasChildren(['name', 'score', 'category', 'timestamp'])"
-      }
-    }
   }
 }

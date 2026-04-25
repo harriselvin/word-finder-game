@@ -15,6 +15,14 @@
     ]
   },
   "database": {
-    "rules": "database.rules.json"
+    "rules": {
+      "leaderboard": {
+        ".read": true,
+        "$entryId": {
+          ".write": "newData.child('score').isNumber() && newData.child('name').isString()",
+          ".validate": "newData.hasChildren(['name', 'score', 'category', 'timestamp'])"
+        }
+      }
+    }
   }
 }

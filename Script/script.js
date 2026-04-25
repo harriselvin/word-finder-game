@@ -177,7 +177,7 @@ document.querySelectorAll('.category-btn').forEach(button => {
 
 // Load words from the selected category
 function loadCategory() {
-	const selectedCategory = localStorage.getItem('selectedCategory') || 'general'
+	const selectedCategory = localStorage.getItem('selectedCategory') || 'General'
 
 	let words = Object.keys(wordCategories[selectedCategory])
 

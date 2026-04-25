@@ -342,7 +342,7 @@ const displayLeaderboard = () => {
 			let entryElement = document.createElement("tr")
 			entryElement.innerHTML = `
 				<td>${index + 1}</td>
-				<td><strong>${entry.name}</strong</td>
+				<td><strong>${entry.name}</strong></td>
 				<td>${entry.score}</td>
 				<td>${entry.category}</td>`
 			leaderboardElement.appendChild(entryElement)
